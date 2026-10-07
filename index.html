@@ -383,7 +383,7 @@ addEventListener('resize', fitCards);
 function render(){
   recompute();
   const b = [], sec = (id, title, cap, inner) => `<section class="board" id="${id}"><div class="hd"><h2>${title}</h2><span>${cap}</span></div>${inner}</section>`;
-  b.push(sec('naciones','Copa de Naciones','', teamTable(group('team'),'nac','n') + '<p class="note">Tocá un país para ver sus jugadores; en las categorías, tocá un jugador para ver su tarjeta hoyo a hoyo. En negrita los scores que suman; tachado en rojo, el descarte.</p>'));
+  b.push(sec('naciones','Copa de Naciones','', teamTable(group('team'),'nac','n') + '<p class="note">Tocá un país para ver sus jugadores.</p>'));
   b.push(sec('scratch','Scratch','Gross', playerTable(R.filter(p => p.cat === 'A'),'g', false, 'sc')));
   const RANGE = {A:'Index hasta 4,9', B:'Index 5,0 a 10,9', C:'Index 11,0 a 14,9', D:'Index 15,0 a 18,4', E:'Index 18,5 a 25,9', Damas:'Index hasta 25,9'};
   for (const c of CATS){ const rows = R.filter(p => p.cat === c); b.push(sec('cat-'+c, c === 'Damas' ? 'Damas' : 'Categoría ' + c, RANGE[c], playerTable(rows,'n', c !== 'Damas', c))); }
