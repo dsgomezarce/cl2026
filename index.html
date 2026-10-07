@@ -352,6 +352,14 @@ function teamRound(mem, r, mode){
   return {total: nets.reduce((s,p) => s + fin(p,'n'), 0), used};
 }
 const TP = 216;
+/* Naciones: Scratch, A, B, C, D, E, Damas. Interclubes: alfabético hasta que haya resultados; después, por neto acumulado. */
+function memberOrder(mem, mode){
+  const alpha = (a,b) => a.last.localeCompare(b.last, 'es');
+  if (mode === 'nac') return [...mem].sort((a,b) => (b.sc - a.sc) || (CATS.indexOf(a.cat) - CATS.indexOf(b.cat)) || alpha(a,b));
+  const st = p => standing(p, 'n');
+  if (!mem.some(p => st(p).grp === 0)) return [...mem].sort(alpha);
+  return [...mem].sort((a,b) => { const x = st(a), y = st(b); return (x.grp - y.grp) || (x.v - y.v) || alpha(a,b); });
+}
 function teamTable(groups, mode, sid){
   const teams = Object.entries(groups).map(([name, mem]) => { const rs = {}; ROUNDS.forEach(r => rs[r] = teamRound(mem, r, mode)); return {name, mem, rs}; });
   const rs = RS(), multi = rs.length > 1;
@@ -365,7 +373,7 @@ function teamTable(groups, mode, sid){
     const rc = rs.map(r => t.rs[r] ? `<td>${t.rs[r].total}</td>` : '<td class="dim">—</td>').join('');
     body += `<tr class="team ${it.lead?'lead':''}"><td class="pos">${it.pos}</td><td class="l"><button type="button" class="tg" data-t="${esc(tid)}" aria-expanded="${isOpen}"><span class="car" aria-hidden="true"></span>${new Set(t.mem.map(m=>m.c)).size===1 ? flag(t.mem[0].c, t.mem[0].f) : ""}<b>${esc(t.name)}</b></button>${it.lead?CUP:''}</td>${parTd(it.k.grp?null:it.k.v)}${rc}${multi?(isNum(tot)?`<td><b>${tot}</b></td>`:'<td class="dim">—</td>'):''}</tr>`;
     if (!isOpen) continue;
-    const order = [...t.mem].sort((a,b) => (b.sc - a.sc) || (CATS.indexOf(a.cat) - CATS.indexOf(b.cat)) || a.last.localeCompare(b.last));
+    const order = memberOrder(t.mem, mode);
     for (const p of order){
       const role = mode === 'nac' && p.sc ? 'SC' : (p.cat === 'Damas' ? 'W' : p.cat);
       const show = r => { const x = t.rs[r], o = C[p.id][r];
