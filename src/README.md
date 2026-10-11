@@ -44,26 +44,28 @@ Cada punto es una regla para 2027, con el caso que la originó.
 16. **WD, DQ y NR van al fondo**, ordenados primero por cantidad de rondas jugadas y después por acumulado (Fuenzalida con 2 rondas arriba de Balaguer con 1). Un jugador sin R1/R2 que juega R3 (Fiore) queda último con su R3 visible.
 17. **Damas no tiene premio Senior** (decisión final de Diego, después de probar y revertir un "Senior mixto").
 18. **El cierre se declara:** al terminar, todo lo "provisorio" pasa a "final", la sección pasa a "🏆 Campeones" y el medallero dice "resultado final". El 1.º de cada categoría se define por muerte súbita en cancha, así que el sitio no marca campeón hasta que el Comité confirma.
+19. **Desempate de equipos (Naciones e Interclubes): mejor último día.** Si sigue el empate, el día anterior, y así; por último sorteo. Decisión del Comité del 11/10, implementada en `teamTie` (app3.js) y escrita en las Condiciones. Reemplaza el desempate por descartes que traía el reglamento.
+20. **Escribir en las Condiciones todos los criterios antes del torneo.** En 2026 hubo que definir sobre la marcha Últimos 18 (Damas, Scratch en la A, no acumulable), Senior en Damas y el desempate de equipos; quedaron en el Doc recién el 11/10. Para 2027, revisar también el medallero de Interclubes mixtos: el reglamento da una medalla al país de cada integrante y el sitio da una sola al país mayoritario.
 
 ### 1.3 Web, TV y publicación
 
-19. **La publicación pública va en GitHub Pages desde el día 0.** Los artifacts de claude.ai muestran la barra de claude.ai, iOS no permite pantalla completa y los conectores solo funcionan para el dueño. Se migró el 7/10 al mediodía.
-20. **Claude no puede crear el repo:** crearlo a mano, activar Pages (Settings → Pages → main / root) y configurar el dominio antes del torneo.
-21. **Datos en vivo por una hoja espejo pública** con `IMPORTRANGE`, leída por la web cada 90 s (gviz JSONP). El commit cada 10 min queda como respaldo.
-22. **No usar emojis de bandera en la web:** en algunos celulares no se ven. Usar SVG propios (en `app3.js`, objeto `SVGF`). Agregar los países nuevos.
-23. **Probar a 390 px de ancho**, en la vista más ancha (R3/Total). Nombres en una línea: escritorio "APELLIDO COMPLETO, Nombres", intermedio "APELLIDO, Nombre", móvil "APELLIDO, N.".
-24. **La TV se recarga solo si cambia `release.txt`**, con escala fija 1920×1080. Así no parpadea ni se resetea.
-25. **Nunca correr `pub_update.py` desde una copia o un test:** escribe `release.txt` del repo con ruta absoluta y sube el contador. Si pasa: `git checkout release.txt`.
-26. **El sandbox de Claude no llega al dominio público** (proxy). Verificar el sitio en vivo desde un navegador real y decir qué se verificó y qué no.
-27. **Habilitar cada ronda es decisión del Comité** (`max_round.txt`).
+21. **La publicación pública va en GitHub Pages desde el día 0.** Los artifacts de claude.ai muestran la barra de claude.ai, iOS no permite pantalla completa y los conectores solo funcionan para el dueño. Se migró el 7/10 al mediodía.
+22. **Claude no puede crear el repo:** crearlo a mano, activar Pages (Settings → Pages → main / root) y configurar el dominio antes del torneo.
+23. **Datos en vivo por una hoja espejo pública** con `IMPORTRANGE`, leída por la web cada 90 s (gviz JSONP). El commit cada 10 min queda como respaldo.
+24. **No usar emojis de bandera en la web:** en algunos celulares no se ven. Usar SVG propios (en `app3.js`, objeto `SVGF`). Agregar los países nuevos.
+25. **Probar a 390 px de ancho**, en la vista más ancha (R3/Total). Nombres en una línea: escritorio "APELLIDO COMPLETO, Nombres", intermedio "APELLIDO, Nombre", móvil "APELLIDO, N.".
+26. **La TV se recarga solo si cambia `release.txt`**, con escala fija 1920×1080. Así no parpadea ni se resetea.
+27. **Nunca correr `pub_update.py` desde una copia o un test:** escribe `release.txt` del repo con ruta absoluta y sube el contador. Si pasa: `git checkout release.txt`.
+28. **El sandbox de Claude no llega al dominio público** (proxy). Verificar el sitio en vivo desde un navegador real y decir qué se verificó y qué no.
+29. **Habilitar cada ronda es decisión del Comité** (`max_round.txt`).
 
 ### 1.4 Forma de trabajo
 
-28. **"No hagas nada sin mi autorización clara"** (Diego, 8/10). Los ciclos automáticos solo hacen el respaldo autorizado. Habilitar rondas, reordenar filas, cambiar código del sitio, tocar horarios o Participants: con permiso explícito.
-29. **Confirmar el alcance antes de cambiar estructuras de la Sheet.** "Hoyo no va" se entendió como "no cargar hoyo a hoyo" y era "sacar la columna Hoyo actual".
-30. **Verificar contra el reglamento antes de afirmar un resultado.** Contar desde los datos, no de memoria (en 2026 se informó "5 WD" y eran 4).
-31. **No reescribir el historial del repo** sin autorización.
-32. **Comunicación a jugadores:** en el Cuadro de Honor no se dice qué premio recibe cada uno; banderas en lugar de códigos; lo más importante arriba.
+30. **"No hagas nada sin mi autorización clara"** (Diego, 8/10). Los ciclos automáticos solo hacen el respaldo autorizado. Habilitar rondas, reordenar filas, cambiar código del sitio, tocar horarios o Participants: con permiso explícito.
+31. **Confirmar el alcance antes de cambiar estructuras de la Sheet.** "Hoyo no va" se entendió como "no cargar hoyo a hoyo" y era "sacar la columna Hoyo actual".
+32. **Verificar contra el reglamento antes de afirmar un resultado.** Contar desde los datos, no de memoria (en 2026 se informó "5 WD" y eran 4).
+33. **No reescribir el historial del repo** sin autorización.
+34. **Comunicación a jugadores:** en el Cuadro de Honor no se dice qué premio recibe cada uno; banderas en lugar de códigos; lo más importante arriba.
 
 ---
 
@@ -499,7 +501,6 @@ Devuelve: podio Scratch, podios por categoría, Senior por categoría, top 3 de 
 | Pestaña | Contenido |
 |---|---|
 | Inscripciones | Un jugador por fila desde la fila 5. Encabezado amarillo = cargar; azul = automático |
-| Turismo | Una fila por persona (golfista y cada acompañante), vinculada al golfista: hotel, habitación, check-in/out, noches, vuelos, traslados, cena, restricción alimentaria, paquete y pago |
 | Edición 2027 | Sede, campos y fechas (**a definir**), index máximo, edad Senior, mínimos por categoría, tamaño de equipos |
 | Categorías | Rangos de index 2026 para estimar la categoría |
 | Equipos | Equipos Nación e Interclub, con control de cantidad de jugadores y de Scratch |
@@ -509,10 +510,6 @@ Columnas de Inscripciones: Nº · Apellidos · Nombres · **Nombre Completo** (a
 
 - La edad y el Senior se calculan cuando se carga la fecha de inicio en "Edición 2027".
 - La categoría estimada usa el index con tope 25,9; con index mayor a 30 dice "No admitido"; las damas van a "Damas".
-- **Turismo, todo vinculado:** el golfista se elige de una lista que sale de Inscripciones; el golfista va en una fila con Tipo = Golfista y cada acompañante en su propia fila con Tipo = Acompañante. Quienes comparten habitación llevan el mismo Código de habitación. Columnas: Nº · Golfista vinculado · Tipo · Apellidos y Nombres (acompañante) · **Persona** · **País del golfista** · Menor de edad · Hotel · Tipo de habitación · Código de habitación · Check-in · Check-out · **Noches** · Vuelo y fecha-hora de llegada · Vuelo y fecha-hora de salida · Traslado de llegada · Traslado de salida · Cena de premiación · Restricción alimentaria · Paquete o tarifa · Pago turismo · **Control** · Observaciones · Clave (aux).
-- **De vuelta en Inscripciones** (columnas X a AB, automáticas): Turismo (Cargado/Falta), Acompañantes, Hotel, Check-in y Check-out del golfista.
-- El Control de Turismo avisa: golfista no inscripto, falta el tipo, falta el nombre del acompañante, check-out antes del check-in, golfista repetido.
-- No cargar números de pasaporte ni documentos en la planilla.
 - Los campos son una propuesta: se pueden agregar o quitar columnas sin romper nada siempre que no se muevan las de fórmula (A, D, G, H, P).
 
 ---
@@ -542,7 +539,6 @@ kit/
   impresos/horarios/                tt2.py, build2.py, horarios.html, starter.py, gen3c.py, rows3.py, make_r3.py
   impresos/stickers/                make_r1.py, make_r2.py, make_r3.py
   impresos/premios/                 awards.js, premios.html, premiados.html, br.html, story.html, pdf.js, pdf2.js, shot.js, shot2.js
-  comite/comite-campeonato.html     fuente del artifact del Comité
 ```
 
 Los scripts de horarios y stickers leen JSON exportados de la Sheet (`get_values` de Participants o de los horarios simplificados) y tienen rutas de la máquina de 2026: revisar las primeras líneas de cada uno antes de usarlos.
