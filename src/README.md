@@ -69,7 +69,7 @@ Cada punto es una regla para 2027, con el caso que la originó.
 
 ## 2. Reglamento tal como se aplicó en 2026
 
-Fuente: "Condiciones de la Competencia – CL 2026" (link en sección 3).
+Fuente: "Condiciones de la Competencia – CL 2026" (link en sección 3). El 11/10/2026 el Comité incorporó al Doc los criterios aplicados: Últimos 18 (A a E y Damas, Scratch compite en la A, no acumulable con ningún premio), Damas sin premio Senior, Interclubes fuera de clasificación si no completa tres scores, y desempate de equipos por mejor último día. La copia .docx no se actualizó.
 
 ### 2.1 Participación y hándicap
 - Index WHS hasta 25,9. Con 26,0 a 30,0 se juega con 25,9. Más de 30: no participa.
