@@ -33,7 +33,7 @@ Cada punto es una regla para 2027, con el caso que la originó.
 8. **Fechas de nacimiento con año de 4 cifras.** En 2026 dos fechas venían con año de 2 cifras y se interpretaron bien de casualidad.
 9. **La Sheet usa locale es_ES:** fórmulas con `;`, coma decimal, la API devuelve "-0,3" como texto. Cualquier script que lea valores tiene que convertir la coma.
 10. **El Hcp de cada ronda sale de Resultados** (Hcp base AF y Hcp juego Z), no de Participants. Participants solo da el Hcp de referencia por campo.
-11. **El score máximo por hoyo no se valida.** Soares (Cat. E) anotó 9 en un par 3 en R1 (máximo 8). Agregar validación en Resultados: par 3 → 8, par 4 → 9, par 5 → 10, excepto Scratch y A.
+11. **El score máximo por hoyo no se valida.** Soares (Cat. E) anotó 9 en un par 3 en R1 (máximo 8); se corrigió a 8 después del cierre (R1 = 113, sin cambio de posiciones). Agregar validación en Resultados: par 3 → 8, par 4 → 9, par 5 → 10, excepto Scratch y A.
 
 ### 1.2 Reglamento aplicado en el código
 
@@ -117,11 +117,13 @@ Fuente: "Condiciones de la Competencia – CL 2026" (link en sección 3).
 - Score por ronda: gross del Scratch + los 2 mejores netos de los otros 3. **El Scratch nunca se descarta.** Par del equipo: 216 por ronda.
 - Scratch descalificado: cuenta el gross del jugador de menor hándicap del equipo.
 - Equipo con menos de 3 jugadores sin estado en una ronda: fuera.
-- Desempate del 1.º: muerte súbita alternando golpes. 2.º y 3.º: descartes de R3, R2, R1, sorteo. **No implementado en el código.**
+- Desempate del 1.º: muerte súbita alternando golpes.
+- **Desempate de posiciones de equipos (decisión del Comité, 11/10/2026): mejor último día.** Si sigue el empate, el día anterior, y así. Implementado en `app3.js` (`teamTie`) para Naciones e Interclubes, en web y TV.
 
 ### 2.7 Interclubes
 - Equipos de 4 (puede ser mixto, de distintos países). Cuentan los 3 mejores netos por ronda; gana el menor total.
 - Con 3 jugadores no hay descarte: un WD lo deja fuera.
+- Empate de posiciones: mejor último día (igual que Naciones).
 
 ### 2.8 Premios (como se entregaron)
 
@@ -257,7 +259,7 @@ Hcp base (AF6):
 ```
 
 **Pares 2026**
-- Iberostar: 4 3 4 4 5 4 4 3 5 | 4 3 4 5 4 4 3 5 4 (36/36). Tomados de 18birdies, **no confirmados contra la tarjeta oficial.**
+- Iberostar: 4 3 4 4 5 4 4 3 5 | 4 3 4 5 4 4 3 5 4 (36/36). Tomados de 18birdies y verificados offline por el Comité.
 - Corales: 4 3 4 5 4 4 5 4 3 | 4 3 5 4 5 4 4 3 4 (36/36). Confirmados.
 
 ### 4.4 Categorías (fila 3 encabezado, filas 4–10)
@@ -278,7 +280,7 @@ Filas: A, B, C, D, E (Sí), Damas (No, asignación por género), Scratch (No, mi
 | Corales | Advantage | Male | 111 | 67,5 |
 | Corales | Damas Forward | Female | 110 | 67,7 |
 
-**Azul y Blanco de Iberostar tienen los mismos valores: verificar contra la tarjeta oficial.**
+Azul y Blanco de Iberostar tienen los mismos valores (verificado offline por el Comité).
 - H3:I15: Equipo Nación → código (Argentina ARG, Argentina B ARG B, Brasil BRA, Brasil B BRA B, Estados Unidos USA, México MEX, Paraguay PAR, Paraguay B PAR B, Venezuela VEN, República Dominicana DOM, Chile CHI).
 
 ### 4.6 Horarios
@@ -485,7 +487,7 @@ Devuelve: podio Scratch, podios por categoría, Senior por categoría, top 3 de 
 5. **Ajustar la cantidad de filas de Resultados** a la cantidad de jugadores (53 por ronda en 2026: las fórmulas de R3 referencian `$A$6:$A$58` y `$A$59:$A$111`; si cambia la cantidad, actualizar esos rangos).
 6. **Hoja espejo nueva** (o reapuntar el IMPORTRANGE) y `LIVE_ID`.
 7. **Repo nuevo** (por ejemplo `cl2027`), Pages, dominio. Versionar también el código fuente (`src/`) para no depender de una carpeta temporal.
-8. **Arreglos pendientes en el código:** `r3sync.py` por encabezado; validación de score máximo; columna de control de nombres; desempate de Naciones 2.º/3.º; medallero de Interclubes mixtos.
+8. **Arreglos pendientes en el código:** `r3sync.py` por encabezado; validación de score máximo; columna de control de nombres; medallero de Interclubes mixtos.
 9. **Prueba completa** con datos de demo: web a 390 px, TV en la pantalla, impresos. Borrar el demo el día anterior.
 
 ---
@@ -515,14 +517,18 @@ Columnas de Inscripciones: Nº · Apellidos · Nombres · **Nombre Completo** (a
 
 ---
 
-## 12. Pendientes abiertos de 2026
+## 12. Pendientes de 2026 (cerrados el 11/10)
 
-1. **Soares, R1, hoyo 16 (par 3):** anotó 9, por encima del máximo de 8. Su R1 debería ser 113. No cambia posiciones. Sin corregir en la Sheet.
-2. **Últimos 18 A:** si en la ceremonia se entregó a Vera, el premio correspondía a Fernando Augusto Da Silva (71 neto).
-3. **Guía de entrega de premios:** la versión impresa decía Vera y no incluía la fila Damas (Mija Kim).
-4. **"Gil Hipólito":** la planilla dice HIPOLITO sin tilde; confirmar.
-5. **Pares de Iberostar y slope/rating de Azul y Blanco:** sin verificar.
-6. **Medallero de Interclubes mixtos** y **desempate 2.º/3.º de Naciones:** sin implementar según reglamento.
+| # | Tema | Resolución |
+|---|---|---|
+| 1 | Soares, R1, hoyo 16 (par 3): anotó 9, por encima del máximo | Corregido a 8 en la Sheet y en el sitio. R1 = 113. Sin cambio de posiciones |
+| 2 | Últimos 18 A entregado a Vera; correspondía a Da Silva | Cerrado. Queda como aprendizaje (sección 1, punto 3) |
+| 3 | Guía de entrega con Vera y sin la fila Damas | Cerrado. Mismo aprendizaje |
+| 4 | "HIPOLITO" sin tilde | Corregido a HIPÓLITO, Gil en Participants, Resultados y el sitio |
+| 5 | Pares de Iberostar y slope/rating de Azul y Blanco | Verificados offline por el Comité |
+| 6 | Desempate de posiciones de equipos | Mejor último día (sección 2.6), implementado |
+
+Queda abierto para 2027: el medallero cuenta una sola medalla por equipo de Interclubes (país mayoritario), y el reglamento dice una por cada país en equipos mixtos.
 
 ---
 

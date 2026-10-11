@@ -40,7 +40,7 @@ function teamData(groups, mode){
   const rs = RS();
   const teams = Object.entries(groups).map(([name, mem]) => { const x = {}; ROUNDS.forEach(r => x[r] = teamRound(mem, r, mode)); return {name, mem, rs:x}; });
   const key = t => teamKey(t, rs, mode);
-  return rank(teams, key, t => t.name);
+  return rank(teams, key, t => t.name, t => teamTie(t, rs));
 }
 const teamFlag = (t, mode) => mode === 'nac' ? natFlag(t.mem) : (new Set(t.mem.map(m=>m.c)).size === 1 ? flag(t.mem[0].c, t.mem[0].f) : '');
 function teamSlides(groups, mode, title, cap){

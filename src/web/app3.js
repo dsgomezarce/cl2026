@@ -200,6 +200,8 @@ function teamKey(t, rs, mode){
   const out = rs.some(r => t.mem.filter(p => !C[p.id][r].st).length < 3);
   if (out) return {grp:3, v:0, st:'—'};
   const d = rs.filter(r => t.rs[r]); return d.length ? {grp:0, v:d.reduce((s,r) => s + t.rs[r].total - TP, 0)} : {grp:2, v:0}; }
+/* desempate de equipos (Comité, 11/10/2026): mejor último día; si sigue el empate, el día anterior, y así. Solo con todas las rondas completas. */
+function teamTie(t, rs){ if (!rs.length || !rs.every(r => t.rs[r])) return null; return [...rs].reverse().map(r => t.rs[r].total); }
 const TP = 216;
 /* bandera de la nación del equipo (la más común entre sus jugadores): en Naciones todos llevan esa */
 const natFlag = mem => { const n = {}; mem.forEach(m => n[m.c] = (n[m.c] || 0) + 1); const top = Object.keys(n).sort((x, y) => n[y] - n[x])[0]; const m = mem.find(x => x.c === top); return m ? flag(m.c, m.f) : ''; };
@@ -215,7 +217,7 @@ function teamTable(groups, mode, sid){
   const teams = Object.entries(groups).map(([name, mem]) => { const rs = {}; ROUNDS.forEach(r => rs[r] = teamRound(mem, r, mode)); return {name, mem, rs}; });
   const rs = RS(), multi = rs.length > 1;
   const key = t => teamKey(t, rs, mode);
-  const ranked = rank(teams, key, t => t.name);
+  const ranked = rank(teams, key, t => t.name, t => teamTie(t, rs));
   let body = '';
   for (const it of ranked){
     const t = it.x, tid = sid + ':' + t.name, isOpen = open.has(tid);
@@ -250,7 +252,7 @@ function teamWinner(by, mode){
   const teams = Object.entries(group(by)).map(([name, mem]) => { const rs = {}; ROUNDS.forEach(r => rs[r] = teamRound(mem, r, mode)); return {name, mem, rs}; });
   const rs = RS();
   const key = t => teamKey(t, rs, mode);
-  const top = rank(teams, key, t => t.name)[0];
+  const top = rank(teams, key, t => t.name, t => teamTie(t, rs))[0];
   return top && !top.k.grp ? top.x : null;
 }
 function medalList(){
@@ -313,7 +315,7 @@ function teamRanked(by, mode){
   const teams = Object.entries(group(by)).map(([name, mem]) => { const rs = {}; ROUNDS.forEach(r => rs[r] = teamRound(mem, r, mode)); return {name, mem, rs}; });
   const rs = RS();
   const key = t => teamKey(t, rs, mode);
-  return rank(teams, key, t => t.name).filter(it => !it.k.grp);
+  return rank(teams, key, t => t.name, t => teamTie(t, rs)).filter(it => !it.k.grp);
 }
 function champTable(){
   const L = [];
