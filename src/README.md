@@ -497,6 +497,7 @@ Devuelve: podio Scratch, podios por categoría, Senior por categoría, top 3 de 
 | Pestaña | Contenido |
 |---|---|
 | Inscripciones | Un jugador por fila desde la fila 5. Encabezado amarillo = cargar; azul = automático |
+| Turismo | Una fila por persona (golfista y cada acompañante), vinculada al golfista: hotel, habitación, check-in/out, noches, vuelos, traslados, cena, restricción alimentaria, paquete y pago |
 | Edición 2027 | Sede, campos y fechas (**a definir**), index máximo, edad Senior, mínimos por categoría, tamaño de equipos |
 | Categorías | Rangos de index 2026 para estimar la categoría |
 | Equipos | Equipos Nación e Interclub, con control de cantidad de jugadores y de Scratch |
@@ -506,6 +507,10 @@ Columnas de Inscripciones: Nº · Apellidos · Nombres · **Nombre Completo** (a
 
 - La edad y el Senior se calculan cuando se carga la fecha de inicio en "Edición 2027".
 - La categoría estimada usa el index con tope 25,9; con index mayor a 30 dice "No admitido"; las damas van a "Damas".
+- **Turismo, todo vinculado:** el golfista se elige de una lista que sale de Inscripciones; el golfista va en una fila con Tipo = Golfista y cada acompañante en su propia fila con Tipo = Acompañante. Quienes comparten habitación llevan el mismo Código de habitación. Columnas: Nº · Golfista vinculado · Tipo · Apellidos y Nombres (acompañante) · **Persona** · **País del golfista** · Menor de edad · Hotel · Tipo de habitación · Código de habitación · Check-in · Check-out · **Noches** · Vuelo y fecha-hora de llegada · Vuelo y fecha-hora de salida · Traslado de llegada · Traslado de salida · Cena de premiación · Restricción alimentaria · Paquete o tarifa · Pago turismo · **Control** · Observaciones · Clave (aux).
+- **De vuelta en Inscripciones** (columnas X a AB, automáticas): Turismo (Cargado/Falta), Acompañantes, Hotel, Check-in y Check-out del golfista.
+- El Control de Turismo avisa: golfista no inscripto, falta el tipo, falta el nombre del acompañante, check-out antes del check-in, golfista repetido.
+- No cargar números de pasaporte ni documentos en la planilla.
 - Los campos son una propuesta: se pueden agregar o quitar columnas sin romper nada siempre que no se muevan las de fórmula (A, D, G, H, P).
 
 ---
