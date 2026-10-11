@@ -4,7 +4,7 @@
 **Para:** el Comité de la edición 2027 (XIX), o quien tenga que levantar el sistema de cero.
 **Escrito:** 11/10/2026, con el torneo cerrado y los resultados finales.
 
-Este documento tiene todo lo necesario para recrear el sistema completo sin otra explicación: aprendizajes, reglamento aplicado, documentos y links, estructura de la planilla con sus fórmulas, código del sitio y la TV, operación día por día, impresos, premios y la lista de datos a cambiar para 2027. El código fuente está publicado junto a este manual, en la carpeta `kit/` del artifact del Comité.
+Este documento tiene todo lo necesario para recrear el sistema completo sin otra explicación: aprendizajes, reglamento aplicado, documentos y links, estructura de la planilla con sus fórmulas, código del sitio y la TV, operación día por día, impresos, premios y la lista de datos a cambiar para 2027. El código fuente está en el repo del sitio, carpeta `src/`: [github.com/dsgomezarce/cl2026/tree/main/src](https://github.com/dsgomezarce/cl2026/tree/main/src). En este manual esa carpeta se llama `kit/`.
 
 ---
 
