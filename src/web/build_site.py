@@ -9,6 +9,9 @@ HEAD = ('<!doctype html><html lang="es"><head><meta charset="utf-8">'
         '<style>*,*::before,*::after{box-sizing:border-box}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>'
         '</head><body>')
 BASE = 'https://leaderboard.latinoamericano.golf/'
+# Google Analytics 4: mismo ID que latinoamericano.golf (propiedad 287103902); en GA se separa por hostName.
+GA = ('<script async src="https://www.googletagmanager.com/gtag/js?id=G-6YMQN8H9XW"></script>'
+      '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-6YMQN8H9XW");</script>')
 def og(path, title):
     d = 'Resultados del XVIII Campeonato Latinoamericano de Golf: Copa de Naciones, categorías, Seniors e Interclubes. Punta Cana, 7 al 9 de octubre de 2026.'
     return (f'<title>{title}</title><meta name="description" content="{d}">'
@@ -21,7 +24,7 @@ def og(path, title):
 for src, dst, path, title in (('leaderboard-publico.html', 'index.html', '', 'Leaderboard · XVIII Campeonato Latinoamericano de Golf'),
                               ('leaderboard-tv.html', 'tv.html', 'tv/', 'Leaderboard TV · XVIII Campeonato Latinoamericano de Golf')):
     head = HEAD if dst != 'tv.html' else HEAD.replace('width=device-width,initial-scale=1,viewport-fit=cover', 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover')
-    open(f'{SITE}/{dst}', 'w').write(head.replace('</head>', og(path, title) + '</head>') + open(src).read() + '</body></html>')
+    open(f'{SITE}/{dst}', 'w').write(head.replace('</head>', og(path, title) + GA + '</head>') + open(src).read() + '</body></html>')
 shutil.copy('og.png', f'{SITE}/og.png')
 shutil.copy('tv_data.json', f'{SITE}/data.json')
 import os; os.makedirs(f'{SITE}/tv', exist_ok=True)

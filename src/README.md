@@ -58,14 +58,16 @@ Cada punto es una regla para 2027, con el caso que la originó.
 27. **Nunca correr `pub_update.py` desde una copia o un test:** escribe `release.txt` del repo con ruta absoluta y sube el contador. Si pasa: `git checkout release.txt`.
 28. **El sandbox de Claude no llega al dominio público** (proxy). Verificar el sitio en vivo desde un navegador real y decir qué se verificó y qué no.
 29. **Habilitar cada ronda es decisión del Comité** (`max_round.txt`).
+30. **Medir el leaderboard desde el día 0.** En 2026 el leaderboard no tuvo Google Analytics y su tráfico, seguramente el mayor del torneo, quedó sin medir: GA solo veía latinoamericano.golf. Se agregó el 12/10 el tag GA4 `G-6YMQN8H9XW` (misma propiedad 287103902 que el sitio; en GA se separa por `hostName`) en `build_site.py`. En 2027 confirmar que el tag esté en `index.html` y `tv/` antes de publicar. La TV queda abierta horas: no tomar sus sesiones como público.
 
 ### 1.4 Forma de trabajo
 
-30. **"No hagas nada sin mi autorización clara"** (Diego, 8/10). Los ciclos automáticos solo hacen el respaldo autorizado. Habilitar rondas, reordenar filas, cambiar código del sitio, tocar horarios o Participants: con permiso explícito.
-31. **Confirmar el alcance antes de cambiar estructuras de la Sheet.** "Hoyo no va" se entendió como "no cargar hoyo a hoyo" y era "sacar la columna Hoyo actual".
-32. **Verificar contra el reglamento antes de afirmar un resultado.** Contar desde los datos, no de memoria (en 2026 se informó "5 WD" y eran 4).
-33. **No reescribir el historial del repo** sin autorización.
-34. **Comunicación a jugadores:** en el Cuadro de Honor no se dice qué premio recibe cada uno; banderas en lugar de códigos; lo más importante arriba.
+31. **"No hagas nada sin mi autorización clara"** (Diego, 8/10). Los ciclos automáticos solo hacen el respaldo autorizado. Habilitar rondas, reordenar filas, cambiar código del sitio, tocar horarios o Participants: con permiso explícito.
+32. **Confirmar el alcance antes de cambiar estructuras de la Sheet.** "Hoyo no va" se entendió como "no cargar hoyo a hoyo" y era "sacar la columna Hoyo actual".
+33. **Verificar contra el reglamento antes de afirmar un resultado.** Contar desde los datos, no de memoria (en 2026 se informó "5 WD" y eran 4).
+34. **No reescribir el historial del repo** sin autorización.
+35. **Comunicación a jugadores:** en el Cuadro de Honor no se dice qué premio recibe cada uno; banderas en lugar de códigos; lo más importante arriba.
+36. **Reporte de cierre de redes: sacar los datos por API, no a mano.** El panel web de Instagram limita consultas (bloqueo por exceso de pedidos) y no da seguidores por día ni demografía; un informe hecho con IA (Gemini) mezcló ventanas de 7 y 30 días y traía cifras incompatibles. Supermetrics (Instagram Insights `IGI`, cuenta 17841401486748279, y GA4 `GAWA`) da vistas y seguidores diarios, demografía de seguidores y métricas por publicación. Bajar todo el día después del cierre con la misma ventana de fechas (los insights de historias vencen) y guardar las capturas de las publicaciones ese mismo día.
 
 ---
 
@@ -169,6 +171,8 @@ Fuente: "Condiciones de la Competencia – CL 2026" (link en sección 3). El 11/
 | Repo del sitio | https://github.com/dsgomezarce/cl2026 | GitHub Pages, rama main |
 | **Comité de Campeonato** (artifact) | https://claude.ai/artifact/224Bnat9UhH2cT5egGmuA2 | Hub del Comité. Acá está publicado este manual |
 | Leaderboard Comité (artifact) | https://claude.ai/artifact/WM5xURfQv6HKgn7ELT8WqT | Lee la Sheet en vivo con conector. Solo funciona para su dueño |
+| **Reporte de cierre Instagram y web** (deck) | https://claude.ai/artifact/GuDr266k4Qksy5Pcc3SykJ | 18 slides: Instagram (30/7/90 días), audiencia, publicaciones, web. Compartido con link |
+| Google Analytics 4 | Propiedad 287103902 · ID `G-6YMQN8H9XW` | Mide latinoamericano.golf y, desde el 12/10, el leaderboard |
 | Leaderboard y TV en artifact | https://claude.ai/artifact/LdNre8tYgXGqpgMCuGnfNT · https://claude.ai/artifact/WSiKM25Z4M4yMAYATUiwnx | Versiones previas, reemplazadas por GitHub Pages |
 
 Los Docs y la planilla de Inscripción 2027 están en "Mi unidad" de la cuenta de Diego.
@@ -488,7 +492,7 @@ Devuelve: podio Scratch, podios por categoría, Senior por categoría, top 3 de 
 4. **Cambiar campos, tees, pares** (10.1). Cambiar la fecha de la edad.
 5. **Ajustar la cantidad de filas de Resultados** a la cantidad de jugadores (53 por ronda en 2026: las fórmulas de R3 referencian `$A$6:$A$58` y `$A$59:$A$111`; si cambia la cantidad, actualizar esos rangos).
 6. **Hoja espejo nueva** (o reapuntar el IMPORTRANGE) y `LIVE_ID`.
-7. **Repo nuevo** (por ejemplo `cl2027`), Pages, dominio. Versionar también el código fuente (`src/`) para no depender de una carpeta temporal.
+7. **Repo nuevo** (por ejemplo `cl2027`), Pages, dominio, y el tag de GA4 en el leaderboard (aprendizaje 30). Versionar también el código fuente (`src/`) para no depender de una carpeta temporal.
 8. **Arreglos pendientes en el código:** `r3sync.py` por encabezado; validación de score máximo; columna de control de nombres; medallero de Interclubes mixtos.
 9. **Prueba completa** con datos de demo: web a 390 px, TV en la pantalla, impresos. Borrar el demo el día anterior.
 
