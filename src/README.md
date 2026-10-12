@@ -171,7 +171,7 @@ Fuente: "Condiciones de la Competencia – CL 2026" (link en sección 3). El 11/
 | Repo del sitio | https://github.com/dsgomezarce/cl2026 | GitHub Pages, rama main |
 | **Comité de Campeonato** (artifact) | https://claude.ai/artifact/224Bnat9UhH2cT5egGmuA2 | Hub del Comité. Acá está publicado este manual |
 | Leaderboard Comité (artifact) | https://claude.ai/artifact/WM5xURfQv6HKgn7ELT8WqT | Lee la Sheet en vivo con conector. Solo funciona para su dueño |
-| **Reporte de cierre Instagram y web** (deck) | https://claude.ai/artifact/GuDr266k4Qksy5Pcc3SykJ | 18 slides: Instagram (30/7/90 días), audiencia, publicaciones, web. Compartido con link |
+| **CL 2026 · Impacto digital** (deck de cierre) | https://claude.ai/artifact/GuDr266k4Qksy5Pcc3SykJ | 18 slides: Instagram (30/7/90 días), audiencia, publicaciones, web. Compartido con link |
 | Google Analytics 4 | Propiedad 287103902 · ID `G-6YMQN8H9XW` | Mide latinoamericano.golf y, desde el 12/10, el leaderboard |
 | Leaderboard y TV en artifact | https://claude.ai/artifact/LdNre8tYgXGqpgMCuGnfNT · https://claude.ai/artifact/WSiKM25Z4M4yMAYATUiwnx | Versiones previas, reemplazadas por GitHub Pages |
 
